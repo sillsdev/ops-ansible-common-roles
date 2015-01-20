@@ -14,10 +14,12 @@
      state=latest     
 
 - name: Installing CSF
-  shell:
-     wget http://www.configserver.com/free/csf.tgz
-     tar -xzf csf.tgz
-     sh csf/install.sh
+  shell: rm -f csf.tgz
+  shell: wget http://www.configserver.com/free/csf.tgz
+  shell: tar -xzf csf.tgz
+  shell: sh ./install.sh
+  args:
+      chdir: csf
 
   # Run the csf test script with perl
 - name: Running the CSF test script...
