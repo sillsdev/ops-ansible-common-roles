@@ -3,10 +3,13 @@
 - name: Installing perl dependency...
   apt: 
      name=libwww-perl
-     state=latest
+     state=latest     
 
 - name: Installing CSF
-  apt: name=csf state=latest
+  shell:
+     wget http://www.configserver.com/free/csf.tgz
+     tar -xzf csf.tgz
+     sh csf/install.sh
 
   # Run the csf test script with perl
 - name: Running the CSF test script...
