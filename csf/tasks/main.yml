@@ -1,4 +1,12 @@
 ---
+#Task: Install CSF
+#Filename: main.yml
+#Author: Carson Wiens
+#Date: 19 January 2015
+#Description: Installs and configures the CSF firewall
+#Last Modified: 20 January 2015
+#Modified by: Stephen Papierski (Taylor University)
+#-----------------------------------------------------------------------------------
   # Ensure that we have perl dependency
 - name: Installing perl dependency...
   apt: 
