@@ -4,7 +4,7 @@
 #Author: Carson Wiens
 #Date: 19 January 2015
 #Description: Installs and configures the CSF firewall
-#Last Modified: 20 January 2015
+#Last Modified: 21 January 2015
 #Modified by: Stephen Papierski (Taylor University)
 #-----------------------------------------------------------------------------------
   # Ensure that we have perl dependency
@@ -17,8 +17,10 @@
   shell: rm -f csf.tgz
   shell: wget http://www.configserver.com/free/csf.tgz
   
-- name: Installing CSF...
+- name: Untaring CSF
   shell: tar -xzf csf.tgz
+
+- name: Installing CSF
   shell: sh ./install.sh
   args:
       chdir: csf
@@ -37,7 +39,7 @@
 
   # Modify csf.conf according to the standards in our 'Palaso Servers' google doc
 - name: Modifying firewall settings in csf.conf...
-copy: src=./../files/csf.conf dest=/etc/csf/csf.conf backup=yes
+  copy: src=./../files/csf.conf dest=/etc/csf/csf.conf backup=yes
 
   # Modify csf.allow to allow some common outbound IP addresses
 - name: Appending some commonly used IP addresses to csf.allow...
