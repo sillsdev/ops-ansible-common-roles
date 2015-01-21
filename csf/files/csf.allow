@@ -1,0 +1,32 @@
+###############################################################################
+# Copyright 2006-2015, Way to the Web Limited
+# URL: http://www.configserver.com
+# Email: sales@waytotheweb.com
+###############################################################################
+# The following IP addresses will be allowed through iptables.
+# One IP address per line.
+# CIDR addressing allowed with a quaded IP (e.g. 192.168.254.0/24).
+# Only list IP addresses, not domain names (they will be ignored)
+#
+# Advanced port+ip filtering allowed with the following format
+# tcp/udp|in/out|s/d=port|s/d=ip
+# See readme.txt for more information
+#
+# Note: IP addressess listed in this file will NOT be ignored by lfd, so they
+# can still be blocked. If you do not want lfd to block an IP address you must
+# add it to csf.ignore
+
+82.94.216.250 # cbl.abuseat.org for mail blocking
+193.62.202.28 # Manually allowed - Wed Feb  8 18:48:43 2012
+tcp|out|d=80|d=66.135.58.0/24 # # Akismet antispam - Thu Feb  9 15:06:40 2012
+tcp|out|d=80|d=72.233.56.0/24 # # wordpress.org - Thu Feb  9 15:08:09 2012
+tcp|out|d=80|d=75.126.16.218 # # subdomain.uservoice.com Mar 13 2012
+85.13.195.235 # # configserver.com firewall update - Mon Feb 13 07:46:26 2012
+# 61.7.176.228 # csf SSH installation/upgrade IP address - Mon Feb 13 07:46:36 2012
+tcp|out|d=80|d=184.95.147.111 # # orlando server palaso
+tcp|out|d=80|d=174.36.207.186 # # geolite.maxmind.com 1
+tcp|out|d=80|d=50.97.220.226  # # geolite.maxmind.com 2
+tcp|out|d=80|d=75.101.167.237 # # ESV Bible audio widget
+10.1.1.0/24
+10.1.2.0/24
+
