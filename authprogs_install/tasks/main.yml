@@ -1,0 +1,15 @@
+---
+- git:
+    repo: "https://github.com/daethnir/authprogs.git"
+    dest: "/usr/local/src/authprogs"
+
+- apt: name=python-setuptools
+- apt: name=python-yaml
+- apt: name=ruby-ronn
+
+- command: python setup.py install
+  args:
+    chdir: "/usr/local/src/authprogs"
+    creates: "/usr/local/bin/authprogs"
+
+- apt: name=ruby-ronn state=absent
