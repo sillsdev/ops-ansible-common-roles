@@ -1,5 +1,5 @@
 - name: Authprogs Configuration
-  copy: src="site_files/{{inventory_hostname}}/root/.ssh/authprogs.conf" dest="/root/test/"
+  copyv: src="site_files/{{inventory_hostname}}/root/.ssh/authprogs.conf"  dest="/root/.ssh/"
   
 - name: Authprogs Keys
-  copy: src="site_files/{{inventory_hostname}}/root/.ssh/authorized_keys" dest="/root/test/"
+  copyv: src="site_files/{{inventory_hostname}}/root/.ssh/authorized_keys" dest="/root/.ssh/"
