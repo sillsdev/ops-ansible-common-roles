@@ -1,0 +1,29 @@
+---
+# Installs and configures the CSF firewall
+# Authors: Carson Wiens, Stephen Papierski, Cambell Prince
+
+- stat: path=/etc/csf/csf.conf
+  register: csf_stat
+  
+- fail: msg="csf is already installed"
+  when: csf_stat.stat.exists
+
+- name: Installing perl
+  apt: 
+     name=perl
+     state=latest     
+
+- name: Downloading Config Server Firewall
+  get_url: dest=/usr/local/src url=http://www.configserver.com/free/csf.tgz force=no
+  
+- unarchive: copy=no src=/usr/local/src/csf.tgz dest=/usr/local/src/
+
+- name: Installing Config Server Firewall
+  shell: sh ./install.sh
+  args:
+      chdir: /usr/local/src/csf
+
+- name: Running the CSF test script...
+  shell: perl /etc/csf/csftest.pl | grep FATAL
+  register: csf_output
+  failed_when: "'FATAL' in csf_output.stdout"
