@@ -1,0 +1,7 @@
+- name: Net if-up.d/nat
+  sudo: yes
+  template: src=net_nat_up.j2 dest=/etc/network/if-up.d/nat mode=0755
+
+- name: Net if-down.d/nat
+  sudo: yes
+  template: src=net_nat_down.j2 dest=/etc/network/if-down.d/nat mode=0755

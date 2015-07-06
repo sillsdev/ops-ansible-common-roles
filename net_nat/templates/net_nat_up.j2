@@ -1,0 +1,4 @@
+#!/bin/sh
+{% for item in net_natinfo %}
+iptables -t nat -A POSTROUTING -o {{item.device}} -j MASQUERADE
+{% endfor %}
