@@ -1,0 +1,158 @@
+csf_config_ports:
+  tcp4_in:
+    - 20
+    - 21
+    - 22
+    - 25
+    - 53
+    - 80
+    - 110
+    - 143
+    - 443
+    - 465
+    - 587
+    - 995
+    - 7000
+  tcp4_out:
+    - 25
+    - 43
+    - 53
+    - 80
+    - 110
+    - 443
+    - 587
+  udp4_in:
+    - 20
+    - 21
+    - 53
+    - 33437
+    - 33438
+    - 33439
+  udp4_out:
+    - 20
+    - 21
+    - 53
+
+csf_config_testing: 0
+csf_config_device: "venet0"
+csf_config_alert_ssh_email: 0
+
+csf_config_lfd_interval: 600
+csf_config_lfd_blocks:
+  - name: "SSHD"
+    limit: 5
+    time:  1
+  - name: "FTPD"
+    limit: 5
+    time:  7200
+  - name: "SMTPAUTH"
+    limit: 5
+    time:  7200
+  - name: "POP3D"
+    limit: 5
+    time:  7200
+  - name: "POP3D"
+    limit: 5
+    time:  7200
+  - name: "IMAPD"
+    limit: 5
+    time:  7200
+  - name: "HTACCESS"
+    limit: 5
+    time:  1
+  - name: "MODSEC"
+    limit: 5
+    time:  1
+  - name: "BIND"
+    limit: 0
+    time:  1
+    
+csf_config_lfd_dist_ftp:
+  limit:  5
+  unique: 3
+  time:   3600
+  alert:  1
+  
+csf_config_user_kill:
+  enabled: 0
+  alert:   1
+  action:  ""
+  
+csf_config_port_scan:
+  interval: 300
+  limit:    10
+
+csf_config_port_knocking:
+  alert: 0
+
+# The ST_ variables set system logging / graphing options. Currently we don't use these.
+csf_config_system:
+  enabled: 0
+
+csf_config_logs:
+  - name: "HTACCESS"
+    file: "/var/log/apache2/error.log"
+  - name: "MODSEC"
+    file: "/var/log/apache2/error.log"
+  - name: "SSHD"
+    file: "/var/log/auth.log"
+  - name: "SU"
+    file: "/var/log/messages"
+  - name: "FTPD"
+    file: "/var/log/daemon.log"
+  - name: "SMTPAUTH"
+    file: "/var/log/mail.log"
+  - name: "POP3D"
+    file: "/var/log/mail.log"
+  - name: "IMAPD"
+    file: "/var/log/mail.log"
+  - name: "IPTABLES"
+    file: "/var/log/messages"
+  - name: "SUHOSIN"
+    file: "/var/log/messages"
+  - name: "BIND"
+    file: "/var/log/messages"
+  - name: "SYSLOG"
+    file: "/var/log/syslog"
+  - name: "WEBMIN"
+    file: "/var/log/auth.log"
+
+csf_config_logs_custom:
+  - name: "CUSTOM1"
+    file: "/var/log/mail.log"
+  - name: "CUSTOM2"
+    file: "/var/log/customlog"
+  - name: "CUSTOM3"
+    file: "/var/log/customlog"
+  - name: "CUSTOM4"
+    file: "/var/log/customlog"
+  - name: "CUSTOM5"
+    file: "/var/log/customlog"
+  - name: "CUSTOM6"
+    file: "/var/log/customlog"
+  - name: "CUSTOM7"
+    file: "/var/log/customlog"
+  - name: "CUSTOM8"
+    file: "/var/log/customlog"
+  - name: "CUSTOM9"
+    file: "/var/log/customlog"
+
+csf_config_pignore:
+  lines:
+    - "exe:/usr/sbin/mysqld"
+    - "exe:/usr/lib/courier/courier/courierpop3d"
+    - "exe:/usr/bin/imapd"
+    - "exe:/usr/lib/postfix/smtpd"
+    - "exe:/usr/sbin/apache2"
+    - "user:postfix"
+    - "user:postgrey"
+    - "user:filter"
+    - "user:cambell"
+    - "exe:/usr/lib/courier-imap/bin/pop3d"
+    - "exe:/usr/lib/courier-imap/bin/imapd"
+    - "exe:/usr/sbin/sshd"
+    - "exe:/usr/sbin/proftpd"
+    - "exe:/usr/sbin/named"
+    - "exe:/usr/sbin/ntpd"
+    - "exe:/bin/dbus-daemon"
+    - "exe:/sbin/ntpd"
