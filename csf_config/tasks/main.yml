@@ -3,9 +3,13 @@
 
 - stat: path=/etc/csf/csf.conf
   register: csf_stat
+  tags:
+    - csf_ports
   
 - fail: msg="csf is not installed"
   when: not csf_stat.stat.exists
+  tags:
+    - csf_ports
 
 # General CSF Configuration
 - lineinfile: 
@@ -13,7 +17,6 @@
     regexp: "{{item.regexp}}"
     line: "{{item.line}}"
   with_items:
-    - { regexp: '^TESTING =', line: 'TESTING = "{{csf_config_testing}}"' }
     - { regexp: '^TCP_IN =', line: 'TCP_IN = "{{csf_config_ports.tcp4_in|join(",")}}"' }
     - { regexp: '^TCP_OUT =', line: 'TCP_OUT = "{{csf_config_ports.tcp4_out|join(",")}}"' }
     - { regexp: '^UDP_IN =', line: 'UDP_IN = "{{csf_config_ports.udp4_in|join(",")}}"' }
@@ -22,6 +25,23 @@
     - { regexp: '^TCP6_OUT =', line: 'TCP6_OUT = "{{csf_config_ports.tcp4_out|join(",")}}"' }
     - { regexp: '^UDP6_IN =', line: 'UDP6_IN = "{{csf_config_ports.udp4_in|join(",")}}"' }
     - { regexp: '^UDP6_OUT =', line: 'UDP6_OUT = "{{csf_config_ports.udp4_out|join(",")}}"' }
+  register: csf_config_out_ports
+  tags:
+    - csf_ports
+
+#- name: Output
+#  debug: msg=" Boo hoo {{item}}"
+#  with_items:
+#    csf_config_out_ports.results
+#  tags:
+#    - csf_ports
+
+- lineinfile: 
+    dest: /etc/csf/csf.conf
+    regexp: "{{item.regexp}}"
+    line: "{{item.line}}"
+  with_items:
+    - { regexp: '^TESTING =', line: 'TESTING = "{{csf_config_testing}}"' }
     - { regexp: '^ETH_DEVICE =', line: 'ETH_DEVICE = "{{csf_config_device}}"' }
     - { regexp: '^DENY_IP_LIMIT =', line: 'DENY_IP_LIMIT = "100"' }
     - { regexp: '^LF_LOOKUPS =', line: 'LF_LOOKUPS = "1"' }
