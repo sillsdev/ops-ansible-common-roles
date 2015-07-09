@@ -27,6 +27,8 @@
     - { regexp: '^UDP6_OUT =', line: 'UDP6_OUT = "{{csf_config_ports.udp4_out|join(",")}}"' }
   tags:
     - csf_ports
+  notify:
+    - restart csf
 
 - lineinfile: 
     dest: /etc/csf/csf.conf
@@ -56,6 +58,8 @@
     - { regexp: '^ST_SYSTEM =', line: 'ST_SYSTEM = "{{csf_config_system.enabled}}"' }
     - { regexp: '^LF_WEBMIN_EMAIL_ALERT =', line: 'LF_WEBMIN_EMAIL_ALERT = "0"' }
     # - { regexp: '^', line: '' }
+  notify:
+    - restart csf
 
 # Configure the LFD checks. Each named check has a limit on hits after which ip will be blocked for time seconds.
 - lineinfile: 
@@ -64,6 +68,8 @@
     line: 'LF_{{item.name}} = "{{item.limit}}"'
   with_items:
     csf_config_lfd_blocks
+  notify:
+    - restart csf
 
 - lineinfile: 
     dest: /etc/csf/csf.conf
@@ -71,6 +77,8 @@
     line: 'LF_{{item.name}}_PERM = "{{item.time}}"'
   with_items:
     csf_config_lfd_blocks
+  notify:
+    - restart csf
 
 # Configure the location of the logfiles
 - lineinfile: 
@@ -79,6 +87,8 @@
     line: '{{item.name}}_LOG = "{{item.file}}"'
   with_items:
     csf_config_logs
+  notify:
+    - restart csf
       
 # Configure the location of the custom logfiles
 - lineinfile: 
@@ -87,13 +97,19 @@
     line: '{{item.name}}_LOG = "{{item.file}}"'
   with_items:
     csf_config_logs_custom
+  notify:
+    - restart csf
 
 # Template the csf.pignore
 - template:
     dest: /etc/csf/csf.pignore
     src: csf.pignore.j2
+  notify:
+    - restart csf
 
 # Copy any custom rules
 - copy:
     dest: /usr/local/csf/bin/
     src: regex.custom.pm
+  notify:
+    - restart csf
