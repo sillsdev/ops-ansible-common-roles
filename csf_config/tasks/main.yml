@@ -25,16 +25,8 @@
     - { regexp: '^TCP6_OUT =', line: 'TCP6_OUT = "{{csf_config_ports.tcp4_out|join(",")}}"' }
     - { regexp: '^UDP6_IN =', line: 'UDP6_IN = "{{csf_config_ports.udp4_in|join(",")}}"' }
     - { regexp: '^UDP6_OUT =', line: 'UDP6_OUT = "{{csf_config_ports.udp4_out|join(",")}}"' }
-  register: csf_config_out_ports
   tags:
     - csf_ports
-
-#- name: Output
-#  debug: msg=" Boo hoo {{item}}"
-#  with_items:
-#    csf_config_out_ports.results
-#  tags:
-#    - csf_ports
 
 - lineinfile: 
     dest: /etc/csf/csf.conf
