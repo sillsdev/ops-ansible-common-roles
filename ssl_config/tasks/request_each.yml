@@ -1,0 +1,19 @@
+---
+
+# input var is ssl_request
+ssl_request_key_file: {{ssl_store}}/{{ssl_request.key}}.key
+ssl_request_request_file: {{ssl_store}}/{{ssl_request.key}}.csr
+
+- name: Check if key exists
+  stat: path={{ssl_request_key_file}}
+  register: ssl_key_stat
+
+- name: Create new key (if required)
+  command: openssl genrsa -out {{ssl_request_key_file}} {{ssl_request_key_size | default('2048')}}
+  args:
+    creates: {{ssl_request_key_file}}
+
+- name: Create new request
+  command: openssl req -new -subj '{{ssl_request.fields}}' -key {{ssl_request_key_file}} -out {{ssl_request_request_file}} {{ssl_request.flags | default('sha256')}}
+  #args:
+  #  creates: {{ssl_request_request_file}}

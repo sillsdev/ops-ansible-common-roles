@@ -1,0 +1,9 @@
+---
+
+ssl_store: /root/csr
+
+ssl_items:
+  - key: test
+    state: request
+    fields: "/C=New Plymouth/ST=Taranaki/L=NZ}}/O=saygoweb/CN={{saygoweb.com}}"
+      

@@ -1,0 +1,5 @@
+---
+
+- name: Process ssl items
+  include: request_each.yml ssl_request={{item}}
+  with_items: ssl_items

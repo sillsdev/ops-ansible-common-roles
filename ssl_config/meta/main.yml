@@ -1,0 +1,16 @@
+---
+
+galaxy_info:
+  author: cambell_prince
+  description: Install and configure SSL certificates, keys, and csr signing requests
+  license: license MIT
+  min_ansible_version: 1.9
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+  categories:
+    - web

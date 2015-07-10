@@ -1,0 +1,9 @@
+---
+
+- name: Install packages.
+  apt: name=openssl state=present
+  # when: ansible_os_family == "Debian"
+  
+- name: Ensure ssl store exist
+  file: path={{ssl_store}} state=directory owner="{{ssl_store_owner | default('root')}}" group="{{ssl_store_group | default('root')}}" mode=700
+  
