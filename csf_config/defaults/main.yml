@@ -31,6 +31,26 @@ csf_config_testing: 0
 csf_config_device: "venet0"
 csf_config_alert_ssh_email: 0
 
+csf_config_process_limit: 60
+csf_config_process_interval: 60
+csf_config_process_skip_http: 0
+csf_config_process_deleted: 0
+csf_config_process_deleted_action: ""
+csf_config_process_userproc: 10
+csf_config_process_usermem: 250
+csf_config_process_usertime: 1800
+csf_config_process_userkill: 0
+csf_config_process_userkill_alert: 1
+csf_config_process_user_action: ""
+csf_config_process_load: 30
+csf_config_process_load_avg: 5
+csf_config_process_load_level: 6
+csf_config_process_load_skip: 3600
+csf_config_process_apachestatus: "http://127.0.0.1/server-status"
+csf_config_process_load_action: ""
+csf_config_process_forkbomb: 0
+csf_config_process_sshdhung: 0
+
 csf_config_lfd_interval: 600
 csf_config_lfd_blocks:
   - name: "SSHD"
@@ -66,11 +86,6 @@ csf_config_lfd_dist_ftp:
   unique: 3
   time:   3600
   alert:  1
-  
-csf_config_user_kill:
-  enabled: 0
-  alert:   1
-  action:  ""
   
 csf_config_port_scan:
   interval: 300
@@ -138,6 +153,7 @@ csf_config_pignore:
     - "exe:/usr/bin/imapd"
     - "exe:/usr/lib/postfix/smtpd"
     - "exe:/usr/sbin/apache2"
+    - "exe:/usr/lib/apache2/mpm-prefork/apache2"
     - "user:postfix"
     - "user:postgrey"
     - "user:filter"

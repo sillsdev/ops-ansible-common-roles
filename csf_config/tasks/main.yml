@@ -49,9 +49,6 @@
     - { regexp: '^LF_DISTFTP_UNIQ =', line: 'LF_DISTFTP_UNIQ = "{{csf_config_lfd_dist_ftp.unique}}"' }
     - { regexp: '^LF_DISTFTP_PERM =', line: 'LF_DISTFTP_PERM = "{{csf_config_lfd_dist_ftp.time}}"' }
     - { regexp: '^LF_DISTFTP_ALERT =', line: 'LF_DISTFTP_ALERT = "{{csf_config_lfd_dist_ftp.alert}}"' }
-    - { regexp: '^PT_USERKILL =', line: 'PT_USERKILL = "{{csf_config_user_kill.enabled}}"' }
-    - { regexp: '^PT_USERKILL_ALERT =', line: 'PT_USERKILL_ALERT = "{{csf_config_user_kill.alert}}"' }
-    - { regexp: '^PT_USER_ACTION =', line: 'PT_USER_ACTION = "{{csf_config_user_kill.action}}"' }
     - { regexp: '^PS_INTERVAL =', line: 'PS_INTERVAL = "{{csf_config_port_scan.interval}}"' }
     - { regexp: '^PS_LIMIT =', line: 'PS_LIMIT = "{{csf_config_port_scan.limit}}"' }
     - { regexp: '^PORTKNOCKING_ALERT =', line: 'PORTKNOCKING_ALERT = "{{csf_config_port_knocking.alert}}"' }
@@ -60,6 +57,37 @@
     # - { regexp: '^', line: '' }
   notify:
     - restart csf
+  tags:
+    - csf_conf
+
+- lineinfile:
+    dest: /etc/csf/csf.conf
+    regexp: "^{{item.name}} ="
+    line: "{{item.name}} = {{item.value}}"
+  with_items:
+    - { name: 'PT_LIMIT', value: '"{{csf_config_process_limit}}"' }
+    - { name: 'PT_INTERVAL', value: '"{{csf_config_process_interval}}"' }
+    - { name: 'PT_SKIP_HTTP', value: '"{{csf_config_process_skip_http}}"' }
+    - { name: 'PT_DELETED', value: '"{{csf_config_process_deleted}}"' }
+    - { name: 'PT_DELETED_ACTION', value: '"{{csf_config_process_deleted_action}}"' }
+    - { name: 'PT_USERPROC', value: '"{{csf_config_process_userproc}}"' }
+    - { name: 'PT_USERMEM', value: '"{{csf_config_process_usermem}}"' }
+    - { name: 'PT_USERTIME', value: '"{{csf_config_process_usertime}}"' }
+    - { name: 'PT_USERKILL', value: '"{{csf_config_process_userkill}}"' }
+    - { name: 'PT_USERKILL_ALERT', value: '"{{csf_config_process_userkill_alert}}"' }
+    - { name: 'PT_USER_ACTION', value: '"{{csf_config_process_user_action}}"' }
+    - { name: 'PT_LOAD', value: '"{{csf_config_process_load}}"' }
+    - { name: 'PT_LOAD_AVG', value: '"{{csf_config_process_load_avg}}"' }
+    - { name: 'PT_LOAD_LEVEL', value: '"{{csf_config_process_load_level}}"' }
+    - { name: 'PT_LOAD_SKIP', value: '"{{csf_config_process_load_skip}}"' }
+    - { name: 'PT_APACHESTATUS', value: '"{{csf_config_process_apachestatus}}"' }
+    - { name: 'PT_LOAD_ACTION', value: '"{{csf_config_process_load_action}}"' }
+    - { name: 'PT_FORKBOMB', value: '"{{csf_config_process_forkbomb}}"' }
+    - { name: 'PT_SSHDHUNG', value: '"{{csf_config_process_sshdhung}}"' }
+  notify:
+    - restart csf
+  tags:
+    - csf_process_tracking
 
 # Configure the LFD checks. Each named check has a limit on hits after which ip will be blocked for time seconds.
 - lineinfile: 
@@ -70,6 +98,8 @@
     csf_config_lfd_blocks
   notify:
     - restart csf
+  tags:
+    - csf_lfd_checks
 
 - lineinfile: 
     dest: /etc/csf/csf.conf
@@ -79,6 +109,8 @@
     csf_config_lfd_blocks
   notify:
     - restart csf
+  tags:
+    - csf_lfd_checks
 
 # Configure the location of the logfiles
 - lineinfile: 
@@ -106,6 +138,8 @@
     src: csf.pignore.j2
   notify:
     - restart csf
+  tags:
+    - csf_pignore
 
 # Copy any custom rules
 - copy:
