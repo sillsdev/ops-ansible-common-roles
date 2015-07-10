@@ -165,4 +165,5 @@ csf_config_pignore:
     - "exe:/usr/sbin/named"
     - "exe:/usr/sbin/ntpd"
     - "exe:/bin/dbus-daemon"
+    - "exe:/usr/bin/dbus-daemon"
     - "exe:/sbin/ntpd"
