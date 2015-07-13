@@ -3,7 +3,18 @@
 ssl_store: /root/csr
 
 ssl_items:
-  - key: test
+  - name: test
     state: request
-    fields: "/C=New Plymouth/ST=Taranaki/L=NZ}}/O=saygoweb/CN={{saygoweb.com}}"
+    request:
+        country_code: "NZ"
+        state: "Taranaki"
+        locality: "New Plymouth"
+        organization: "saygoweb"
+        organization_unit: ""
+        common_name: "saygoweb.com"
+        alt_names:
+          - key: DNS.1
+            value: "www.saygoweb.com"
+          - key: DNS.2
+            value: "saygoweb.com"
       

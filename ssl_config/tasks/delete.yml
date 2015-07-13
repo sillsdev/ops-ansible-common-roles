@@ -1,0 +1,19 @@
+---
+
+- file:
+    path: "{{ssl_store}}/{{item.name}}.key"
+    state: absent
+  with_items: ssl_items
+  when: "'{{item.state}}' == 'deleted'"
+
+- file:
+    path: "{{ssl_store}}/{{item.name}}.csr"
+    state: absent
+  with_items: ssl_items
+  when: "'{{item.state}}' == 'deleted' or '{{item.state}}' == 'key'"
+  
+- file:
+    path: "{{ssl_store}}/{{item.name}}.cnf"
+    state: absent
+  with_items: ssl_items
+  when: "'{{item.state}}' == 'deleted' or '{{item.state}}' == 'key'"

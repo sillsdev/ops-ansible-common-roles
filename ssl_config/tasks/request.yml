@@ -1,5 +1,27 @@
 ---
 
-- name: Process ssl items
-  include: request_each.yml ssl_request={{item}}
+- name: Create new key (if required)
+  command: openssl genrsa -out "{{ssl_store}}/{{item.name}}.key" "{{item.key_size | default('2048')}}"
+  args:
+    creates: "{{ssl_store}}/{{item.name}}.key"
   with_items: ssl_items
+  when: "'{{item.state}}' == 'request'"
+
+- name: Create new request config file
+  template:
+    src: openssl.j2
+    dest: "{{ssl_store}}/{{item.name}}.cnf"
+  with_items: ssl_items
+  when: "'{{item.state}}' == 'request'"
+
+- name: Create new request
+  command: openssl req -new -key {{ssl_store}}/{{item.name}}.key -out {{ssl_store}}/{{item.name}}.csr -subj "/C={{item.request.country_code}}/ST={{item.request.state}}/L={{item.request.locality}}/O={{item.request.organization}}" -config {{ssl_store}}/{{item.name}}.cnf {{item.request.flags | default('-sha256')}}
+  #args:
+  #  creates: {{ssl_request_request_file}}
+  with_items: ssl_items
+  when: "'{{item.state}}' == 'request'"
+
+- name: Download requests
+  fetch: src={{ssl_store}}/{{item.name}}.csr dest=site_info/{{inventory_hostname}}/ssl
+  with_items: ssl_items
+  when: "'{{item.state}}' == 'request'"
