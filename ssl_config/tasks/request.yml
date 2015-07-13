@@ -15,7 +15,7 @@
   when: "'{{item.state}}' == 'request'"
 
 - name: Create new request
-  command: openssl req -new -key {{ssl_store}}/{{item.name}}.key -out {{ssl_store}}/{{item.name}}.csr -subj "/C={{item.request.country_code}}/ST={{item.request.state}}/L={{item.request.locality}}/O={{item.request.organization}}" -config {{ssl_store}}/{{item.name}}.cnf {{item.request.flags | default('-sha256')}}
+  command: openssl req -new -key {{ssl_store}}/{{item.name}}.key -out {{ssl_store}}/{{item.name}}.csr -subj "/C={{item.request.country_code}}/ST={{item.request.state}}/L={{item.request.locality}}/O={{item.request.organization}}/CN={{item.request.common_name}}" -config {{ssl_store}}/{{item.name}}.cnf {{item.request.flags | default('-sha256')}}
   #args:
   #  creates: {{ssl_request_request_file}}
   with_items: ssl_items
