@@ -22,6 +22,14 @@
   when: "'{{item.state}}' == 'request'"
 
 - name: Download requests
-  fetch: src={{ssl_store}}/{{item.name}}.csr dest=site_info/{{inventory_hostname}}/ssl
+  fetch: src={{ssl_store}}/{{item.name}}.csr dest=site_info/{{inventory_hostname}}/ssl/ flat=true
   with_items: ssl_items
   when: "'{{item.state}}' == 'request'"
+
+- name: Summary
+  local_action: shell openssl req -text -in site_info/{{inventory_hostname}}/ssl/{{item.name}}.csr | grep -v '\(:\w\w:$\)\|\(\w\w:\w\w$\)' | head -n 18 > site_info/{{inventory_hostname}}/ssl/{{item.name}}.csr.txt
+  with_items: ssl_items
+  when: "'{{item.state}}' == 'request'"
+  changed_when: false
+  tags:
+    - ssl_summary
