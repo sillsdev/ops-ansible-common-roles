@@ -1,0 +1,6 @@
+---
+
+- command: csf -ta {{item.ip}} {{item.ttl}} {{"-d %s"|format(item.direction) if item.direction is defined}} {{"-p %s"|format(item.port) if item.port is defined}} {{item.comment|default('Ansible')}}
+  with_items: csf_actions
+  when: "'{{item.action}}' == 'temp_add'"
+  
