@@ -1,0 +1,12 @@
+---
+
+- stat:
+    path: /etc/logrotate.d/rsyslog
+  register: fix_logrotate_stat
+
+- copy:
+    src: logrotate/rsyslog
+    dest: /etc/logrotate.d/rsyslog
+  when: fix_logrotate_stat.stat.exists
+  notify:
+    - restart rsyslog
