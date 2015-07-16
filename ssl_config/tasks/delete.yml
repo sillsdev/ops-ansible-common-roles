@@ -1,19 +1,22 @@
 ---
 
-- file:
-    path: "{{ssl_store}}/{{item.name}}.key"
+- name: Delete key
+  file:
+    path: "{{ssl_path}}/{{item.name}}.key"
     state: absent
   with_items: ssl_items
   when: "'{{item.state}}' == 'deleted'"
 
-- file:
-    path: "{{ssl_store}}/{{item.name}}.csr"
+- name: Delete csr
+  file:
+    path: "{{ssl_path}}/{{item.name}}.csr"
     state: absent
   with_items: ssl_items
   when: "'{{item.state}}' == 'deleted' or '{{item.state}}' == 'key'"
   
-- file:
-    path: "{{ssl_store}}/{{item.name}}.cnf"
+- name: Delete cnf
+  file:
+    path: "{{ssl_path}}/{{item.name}}.cnf"
     state: absent
   with_items: ssl_items
   when: "'{{item.state}}' == 'deleted' or '{{item.state}}' == 'key'"

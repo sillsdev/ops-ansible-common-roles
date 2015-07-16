@@ -1,6 +1,6 @@
 ---
 
-ssl_store: /root/csr
+ssl_path: /root/csr
 
 ssl_items:
   - name: test
