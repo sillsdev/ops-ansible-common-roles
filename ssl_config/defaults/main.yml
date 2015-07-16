@@ -1,6 +1,7 @@
 ---
 
 ssl_path: /root/csr
+ssl_certificate_local_path: site_files/certificates
 
 ssl_items:
   - name: test
@@ -17,4 +18,6 @@ ssl_items:
             value: "www.saygoweb.com"
           - key: DNS.2
             value: "saygoweb.com"
+  - name: test
+    state: certificate
       
