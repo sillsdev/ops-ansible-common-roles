@@ -1,0 +1,9 @@
+---
+
+user_accounts:
+  - name: testuser
+    authorized:
+      - "{{ keys['testuser'] }}"
+
+keys:
+  testuser: "ssh-rsa NotARealPublicKey=="

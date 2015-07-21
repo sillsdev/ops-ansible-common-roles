@@ -1,0 +1,9 @@
+---
+
+- user: name={{ item.name }} group=staff
+  with_items: "{{user_accounts}}"
+ 
+- authorized_key: user="{{ item.0.name }}" key="{{ item.1 }}"
+  with_subelements:
+    - user_accounts
+    - authorized
