@@ -220,7 +220,10 @@ authorityKeyIdentifier=keyid,issuer
 
 basicConstraints = CA:FALSE
 keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+
+{% if item.request.alt_names | length > 0 %}
 subjectAltName = @alt_names
+{% endif %}
 
 [ v3_ca ]
 
@@ -351,7 +354,9 @@ ess_cert_id_chain	= no	# Must the ESS cert id chain be included?
 				# (optional, default: no)
 
 
+{% if item.request.alt_names | length > 0 %}
 [alt_names]
 {% for alt in item.request.alt_names %}
 {{alt.key}} = {{alt.value}}
 {% endfor %}
+{% endif %}
