@@ -12,3 +12,8 @@ test_debian-7.5:
 	VM_BOX='puphpet/debian75-x64' vagrant up --provision
 	VM_BOX='puphpet/debian75-x64' vagrant provision
 	VM_BOX='puphpet/debian75-x64' vagrant destroy -f
+
+test_debian-7.8:
+	VM_BOX='opscode-debian-7.8-x64' vagrant up --provision
+	VM_BOX='opscode-debian-7.8-x64' vagrant provision
+	VM_BOX='opscode-debian-7.8-x64' vagrant destroy -f

@@ -1,4 +1,4 @@
-$VM_BOX = ENV.has_key?('VM_BOX') ? ENV['VM_BOX'] : 'ubuntu/trusty64'
+$VM_BOX = ENV.has_key?('VM_BOX') ? ENV['VM_BOX'] : 'opscode-debian-7.8-x64'
 
 Vagrant.configure('2') do |config|
   config.vm.box = $VM_BOX

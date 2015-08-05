@@ -1,6 +1,7 @@
 ---
 
-- hosts: all
+- name: SSL Test Configuration
+  hosts: all
   sudo: true
   roles:
-    - { role: ../../ansible-role-apache, tags: apache }
+    - { role: ../../ssl_config, tags: ssl_config }

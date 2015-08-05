@@ -27,6 +27,7 @@
   when: "'{{item.state}}' == 'request'"
 
 - name: Summary
+  sudo: false
   local_action: shell openssl req -text -in site_info/{{inventory_hostname}}/ssl/{{item.name}}.csr | grep -v '\(:\w\w:$\)\|\(\w\w:\w\w$\)' | head -n 18 > site_info/{{inventory_hostname}}/ssl/{{item.name}}.csr.txt
   with_items: ssl_items
   when: "'{{item.state}}' == 'request'"
