@@ -1,0 +1,10 @@
+- name: Postfix Configure main.cf
+  template: src={{postfix_templates}}/main.j2 dest=/etc/postfix/main.cf
+  notify:
+    - restart postfix
+
+- name: Postfix Configure master.cf
+  template: src={{postfix_templates}}/master.j2 dest=/etc/postfix/master.cf
+  notify:
+    - restart postfix
+

@@ -1,0 +1,114 @@
+# Some common configuration parameters
+inet_protocols = ipv4
+inet_interfaces = all
+mynetworks_style = host
+
+# IPv4 source for outbound mails
+smtp_bind_address = {{postfix_smtp_bind_address}}
+
+# IPv6 source for outbound mails
+#smtp_bind_address6 = 
+
+myhostname = {{postfix_myhostname}}
+mydomain = {{postfix_mydomain}}
+myorigin = $myhostname
+
+smtpd_banner = $myhostname ESMTP i-MSCP 1.2.2 Managed
+
+# Receiving messages parameters
+mydestination = $myhostname, $mydomain
+append_dot_mydomain = no
+append_at_myorigin = yes
+local_transport = local
+transport_maps = hash:/etc/postfix/imscp/transport
+relay_domains = hash:/etc/postfix/imscp/relay_domains
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+
+# Delivering local messages parameters
+mail_spool_directory = /var/mail
+
+# Mailboxquota
+# => 0 for unlimited
+# => 104857600 for 100 MB
+mailbox_size_limit = 0
+mailbox_command = procmail -a "$EXTENSION"
+
+# Message size limit
+# => 0 for unlimited
+# => 104857600 for 100 MB
+message_size_limit = 0
+
+biff = no
+recipient_delimiter = +
+
+local_destination_recipient_limit = 1
+local_recipient_maps = unix:passwd.byname $alias_database
+
+# i-MSCP Autoresponder parameters
+imscp-arpl_destination_recipient_limit = 1
+
+# Delivering virtual messages parameters
+virtual_mailbox_base = /var/mail/virtual
+virtual_mailbox_limit = 0
+
+virtual_mailbox_domains = hash:/etc/postfix/imscp/domains
+virtual_mailbox_maps = hash:/etc/postfix/imscp/mailboxes
+
+virtual_alias_maps = hash:/etc/postfix/imscp/aliases
+
+virtual_minimum_uid = 999
+virtual_uid_maps = static:999
+virtual_gid_maps = static:8
+
+# SASL parameters
+smtpd_sasl_type = cyrus
+smtpd_sasl_path = smtpd
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_security_options = noanonymous
+broken_sasl_auth_clients = yes
+smtpd_sasl_authenticated_header = yes
+
+smtpd_helo_required = yes
+
+smtpd_helo_restrictions = permit_mynetworks,
+                          permit_sasl_authenticated,
+                          reject_invalid_helo_hostname,
+                          reject_non_fqdn_helo_hostname
+
+smtpd_sender_restrictions = reject_non_fqdn_sender,
+                            reject_unknown_sender_domain,
+                            permit_mynetworks,
+                            permit_sasl_authenticated
+
+smtpd_relay_restrictions =
+
+smtpd_recipient_restrictions = reject_non_fqdn_recipient,
+                               reject_unknown_recipient_domain,
+                               permit_mynetworks,
+                               permit_sasl_authenticated,
+                               reject_unauth_destination,
+                               reject_unlisted_recipient,
+                               permit
+
+smtpd_data_restrictions = reject_multi_recipient_bounce,
+                          reject_unauth_pipelining
+
+# TLS parameters
+#smtpd_tls_security_level = may
+#smtpd_tls_mandatory_protocols = !SSLv2, !SSLv3
+#smtpd_tls_protocols = !SSLv2, !SSLv3
+#smtpd_tls_loglevel = 0
+#smtpd_tls_cert_file = /etc/imscp/imscp_services.pem
+#smtpd_tls_key_file = /etc/imscp/imscp_services.pem
+#smtpd_tls_auth_only = no
+#smtpd_tls_received_header = yes
+
+#smtp_tls_security_level = may
+#smtp_tls_mandatory_protocols = !SSLv2, !SSLv3
+#smtp_tls_protocols = !SSLv2, !SSLv3
+#smtp_tls_loglevel = 0
+#smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+
+virtual_transport = dovecot
+dovecot_destination_recipient_limit = 1

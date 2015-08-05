@@ -1,0 +1,7 @@
+---
+
+- name: Postfix Installed
+  apt: pkg=postfix state=installed
+  
+- name: Postfix Startup
+  service: name=postfix enabled=yes state=started

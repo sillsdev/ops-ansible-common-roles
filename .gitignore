@@ -1,0 +1,4 @@
+site_info_now/
+site_info_org/
+.vagrant/
+vagrant_ansible_inventory_default
