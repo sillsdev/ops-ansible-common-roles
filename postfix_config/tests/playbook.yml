@@ -5,8 +5,8 @@
   sudo: true
   roles:
     - { role: ../../postfix_install, tags: postfix_install }
-    - { role: ../../postfix_config, postfix_templates: imscp_1.2.x, tags: postfix_config }
+    - { role: ../../postfix_config, tags: postfix_config }
 
-- include: info.yml info_dest='site_info_now'
+# - include: info.yml info_dest='site_info_now'
 
 
