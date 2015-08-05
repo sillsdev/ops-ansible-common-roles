@@ -28,7 +28,9 @@ csf_config_ports:
     - 53
 
 csf_config_testing: 0
-csf_config_device: "venet0"
+# For VZ containers
+# csf_config_device: "venet0"
+csf_config_device: "{{ansible_default_ipv4.interface}}"
 csf_config_alert_ssh_email: 0
 
 csf_config_process_limit: 60

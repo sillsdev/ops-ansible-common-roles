@@ -1,0 +1,12 @@
+---
+
+- name: CSF (Config Server Security + Firewall) Test Install and Configuration
+  hosts: all
+  sudo: true
+  roles:
+    - { role: ../../csf_install, tags: csf_install }
+    - { role: ../../csf_config, tags: csf_config }
+
+# - include: info.yml info_dest='site_info_now'
+
+
