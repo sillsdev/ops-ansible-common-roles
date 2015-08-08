@@ -1,4 +1,8 @@
 ---
+
+- name: Authprogs Install Pre-requisites
+  apt: package=git state=present
+
 - git:
     repo: "https://github.com/daethnir/authprogs.git"
     dest: "/usr/local/src/authprogs"
