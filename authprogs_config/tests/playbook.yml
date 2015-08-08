@@ -1,0 +1,12 @@
+---
+
+- name: Authprogs Test Install and Configuration
+  hosts: all
+  sudo: true
+  roles:
+    - { role: ../../authprogs_install, tags: authprogs_install }
+    - { role: ../../authprogs_config, tags: authprogs_config }
+
+# - include: info.yml info_dest='site_info_now'
+
+
