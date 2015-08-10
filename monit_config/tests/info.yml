@@ -1,0 +1,6 @@
+- name: Monit Info
+  sudo: yes
+  fetch: src={{item}} dest={{info_dest|default('site_info/')}}
+  with_items:
+    - "/etc/monit/monitrc"
+      

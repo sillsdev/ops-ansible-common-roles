@@ -1,0 +1,83 @@
+---
+# Defaults
+
+monit_service_ssh:
+  template: default.j2
+  filename: /etc/monit/conf.d/sshd
+  process: sshd
+  pid: /var/run/sshd.pid
+  groups:
+    - system
+    - sshd
+  start_program: /etc/init.d/ssh start
+  stop_program: /etc/init.d/ssh stop
+  checks:
+    - check: failed host localhost port 22 with proto ssh
+      action: restart
+    - check: 5 restarts with 5 cycles
+      action: timeout
+
+monit_service_apache:
+  template: default.j2
+  filename: /etc/monit/conf.d/apache
+  process: apache2
+  pid: /var/run/apache2.pid
+  groups:
+    - www
+  start_program: /etc/init.d/apache2 start
+  stop_program: /etc/init.d/apache2 stop
+  checks:
+    - check: failed host localhost port 80 with proto http and request "/monit/token" for 4 cycles
+      action: restart
+    - check: cpu > 60% for 2 cycles
+      action: alert
+    - check: cpu > 80% for 5 cycles
+      action: restart
+    - check: totalmem > 700 MB for 5 cycles
+      action: restart
+    - check: children > 50
+      action: restart
+    - check: loadavg(5min) > 10 for 8 cycles
+      action: restart
+
+monit_service_lfd:
+  template: default.j2
+  filename: /etc/monit/conf.d/lfd
+  process: lfd
+  pid: /var/run/lfd.pid
+  groups:
+    - system
+  start_program: /etc/init.d/lfd start
+  stop_program: /etc/init.d/lfd stop
+  checks: []
+
+monit_service_mysql:
+  template: default.j2
+  filename: /etc/monit/conf.d/mysql
+  process: mysql
+  pid: /var/run/mysqld/mysqld.pid
+  groups:
+    - database
+  start_program: /etc/init.d/mysql start
+  stop_program: /etc/init.d/mysql stop
+  checks:
+    - check: failed host localhost port 3306
+      action: restart
+
+monit_service_postfix:
+  template: default.j2
+  filename: /etc/monit/conf.d/postfix
+  process: postfix
+  pid: /var/spool/postfix/pid/master.pid
+  groups:
+    - mail
+  start_program: /etc/init.d/postfix start
+  stop_program: /etc/init.d/postfix stop
+  checks:
+    - check: failed host localhost port 25 protocol smtp for 2 cycles
+      action: restart
+
+monit_has_apache: false
+
+monit_services:
+  - "{{monit_service_ssh}}"

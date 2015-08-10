@@ -1,0 +1,26 @@
+---
+#Task: monit
+#Filename: main.yml
+#Author: Carson Wiens
+#Date: 19 January 2015
+#Description: Installs and configures monit
+#Last Modified: 20 January 2015
+#Modified by: Stephen Papierski (Taylor University)
+#-----------------------------------------------------------------------------------
+
+- name: Monit Configure monitrc
+  template: src=monitrc.j2 dest=/etc/monit/monitrc
+  notify: restart monit
+
+- name: Monit Apache monit foler
+  file: path=/var/www/monit state=directory group=www-data
+  when: monit_has_apache == true
+
+- name: Monit Apache token
+  copy: src=monit_token dest=/var/www/monit/token
+  when: monit_has_apache == true
+
+- name: Monit Configure services
+  template: src={{item.template|default('default.j2')}} dest={{item.filename}}
+  with_items: monit_services
+  notify: restart monit
