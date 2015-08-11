@@ -1,0 +1,5 @@
+---
+# Handlers
+
+- name: restart monit
+  command: monit reload

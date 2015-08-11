@@ -1,0 +1,6 @@
+---
+# Handlers
+
+- name: reinit monit
+  shell: killall -KILL monit; telinit q
+  

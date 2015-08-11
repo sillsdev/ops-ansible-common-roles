@@ -1,0 +1,26 @@
+---
+
+- name: Monit Test Install
+  hosts: all
+  sudo: true
+  roles:
+    - { role: ../../monit_install, tags: monit_install }
+  tasks:
+    - include: info.yml
+      info_dest: ./site_org
+        
+- name: Monit Test Configuration
+  hosts: all
+  sudo: true
+  vars:
+    monit_has_apache: true
+    monit_services:
+      - "{{monit_service_ssh}}"
+      - "{{monit_service_lfd}}"
+      - "{{monit_service_mysql}}"
+      - "{{monit_service_postfix}}"
+      - "{{monit_service_apache}}"
+  roles:
+    - { role: ../../monit_config, tags: monit_config }
+  tasks:
+    - include: info.yml

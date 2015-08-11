@@ -1,0 +1,9 @@
+  check process {{item.process}} with pidfile {{item.pid}}
+{% for group in item.groups %}
+    group {{group}}
+{% endfor %}
+    start program = "{{item.start_program}}"
+    stop  program = "{{item.stop_program}}"
+{% for check in item.checks %}
+    if {{check.check}} then {{check.action}}
+{% endfor %}

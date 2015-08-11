@@ -1,0 +1,17 @@
+---
+- name: Monit Install
+  apt: name=monit state=latest
+
+- name: Monit Add to inittab
+  lineinfile: 
+    dest: /etc/inittab
+    regexp: "/etc/monit/monitrc"
+    line: "mon:23:respawn:/usr/bin/monit -I -d 60 -c /etc/monit/monitrc -s /var/lib/monit/state"
+  notify: reinit monit
+
+# service enabled=no above does not quite do all that we would like
+# it leaves the script in /etc/init.d and also KXX links to it.
+- command: update-rc.d monit remove
+  changed_when: false
+
+- file: path=/etc/init.d/monit state=absent
