@@ -3,4 +3,5 @@
 - { include: install.yml, tags: [ install ] }
 - { include: request.yml, tags: [ config, request ] }
 - { include: certificate.yml, tags: [ config, certificate ] }
+- { include: sign.yml, tags: [ config, sign ] }
 - { include: delete.yml, tags: [ config, delete ] }

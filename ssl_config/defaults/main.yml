@@ -20,4 +20,19 @@ ssl_items:
             value: "saygoweb.com"
   - name: test
     state: certificate
+  - name: testsign
+    state: selfsign
+    request:
+        country_code: "NZ"
+        state: "Taranaki"
+        locality: "New Plymouth"
+        organization: "saygoweb"
+        organization_unit: ""
+        common_name: "default.local"
+        alt_names:
+          - key: DNS.1
+            value: "www.default.local"
+          - key: DNS.2
+            value: "default.local"
+    sign:
       

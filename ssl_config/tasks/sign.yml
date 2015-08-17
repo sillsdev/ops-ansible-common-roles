@@ -1,0 +1,6 @@
+---
+
+- name: Self sign certificate
+  command: openssl x509 -req -days {{item.days|default(3650)}} -in {{ssl_path}}/{{item.name}}.csr -signkey {{ssl_path}}/{{item.name}}.key -out {{ssl_path}}/{{item.name}}.pem {{item.sign.flags | default('-sha256')}}
+  with_items: ssl_items
+  when: "'{{item.state}}' == 'selfsign'"
