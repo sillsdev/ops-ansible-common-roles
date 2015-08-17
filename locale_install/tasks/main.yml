@@ -4,8 +4,8 @@
     line: "{{item}}"
   with_items:
     locale_install_locales
-  when: "'{{ansible_os_family}}' == 'debian'"
+  when: ansible_os_family == "Debian"
 
 - command: locale-gen
-  when: "'{{ansible_os_family}}' == 'debian'"
+  when: ansible_os_family == "Debian"
 
