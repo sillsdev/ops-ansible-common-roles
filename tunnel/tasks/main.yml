@@ -1,0 +1,7 @@
+---
+# tunnel tasks
+
+- name: Tunnel write the tunnel down file
+  template: src="tunnel-down.j2" dest="/etc/network/if-down.d/{{tunnel_filename}}" mode=0755
+- name: Tunnel write the tunnel up file
+  template: src="tunnel-up.j2" dest="/etc/network/if-up.d/{{tunnel_filename}}" mode=0755
