@@ -1,0 +1,10 @@
+#!/bin/sh
+TUNNEL="{{ tunnel_name }}"
+REMOTE="{{ tunnel_remote }}"
+LOCAL="{{ tunnel_local }}"
+REMOTE_NET="{{ tunnel_remote_net }}"
+
+ip tunnel add $TUNNEL mode gre remote $REMOTE
+ip link set $TUNNEL up
+ip addr add $LOCAL dev $TUNNEL
+ip route add $REMOTE_NET dev $TUNNEL

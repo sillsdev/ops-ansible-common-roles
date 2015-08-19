@@ -1,0 +1,8 @@
+---
+# tunnel defaults
+
+tunnel_name: pso
+tunnel_filename: pso_tunnel
+tunnel_remote: 172.17.247.9
+tunnel_local: 10.1.1.253
+tunnel_remote_net: 10.2.0.0/16

@@ -1,0 +1,7 @@
+---
+
+- name: Tunnel Test Configuration
+  hosts: all
+  sudo: true
+  roles:
+    - { role: ../../tunnel, tags: tunnel_config }
