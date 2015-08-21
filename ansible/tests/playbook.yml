@@ -1,0 +1,8 @@
+---
+# Test playbook
+
+- name: "Ansible Test"
+  hosts: all
+  sudo: true
+  roles:
+    - { role: ../../ansible, tags: ansible }

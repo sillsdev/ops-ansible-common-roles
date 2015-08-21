@@ -1,0 +1,22 @@
+---
+# Ansible Tasks
+
+- name: "Ansible: package dependencies"
+  apt: name="{{item}}" state=present update_cache=yes cache_valid_time=86400
+  with_items:
+    - python-pip
+    - python-dev
+    
+- name: "Ansible: install via pip"    
+  pip: name="ansible" state=present
+
+- name: "Ansible: remove build tools"
+  apt: name="{{item}}" state=absent purge=yes
+  with_items:
+    - python-dev
+    - build-essential
+    
+- name: "Ansible: remove other build tools"
+  command: apt-get -y autoremove
+  register: result
+  changed_when: "'packages will be REMOVED' in result.stdout"
