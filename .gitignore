@@ -1,4 +1,6 @@
 site_info_now/
 site_info_org/
 .vagrant/
+known_hosts
 vagrant_ansible_inventory_default
+
