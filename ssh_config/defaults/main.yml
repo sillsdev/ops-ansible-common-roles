@@ -1,0 +1,5 @@
+---
+# Defaults
+
+sshd_use_dns: 'no'
+sshd_permit_root_login: 'no'

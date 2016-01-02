@@ -1,0 +1,10 @@
+---
+
+- lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "{{item.regexp}}"
+    line: "{{item.line}}"
+  with_items:
+    - { regexp: '^\#?PasswordAuthentication ', line: 'PasswordAuthentication no' }
+    - { regexp: '^\#?PermitRootLogin ', line: 'PermitRootLogin {{ sshd_permit_root_login }}' }
+    - { regexp: '^\#?UseDNS ', line: 'UseDNS {{ sshd_use_dns }}' }
