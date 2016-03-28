@@ -1,6 +1,6 @@
 ---
 
-- user: name={{ item.name }} group=staff password={{ item.password | default('$6$WHt3yYfI$u/i/WCxI35Ld4qAd.xU7Zm834MF.Db5C2646a6jrf2CvFJ2BEr.gS.IZJCZVGsnF4WeIBJSK8DJGhiVEJm5Zs0') }}
+- user: name={{ item.name }} group=staff password={{ item.password | default('$6$WHt3yYfI$u/i/WCxI35Ld4qAd.xU7Zm834MF.Db5C2646a6jrf2CvFJ2BEr.gS.IZJCZVGsnF4WeIBJSK8DJGhiVEJm5Zs0') }} update_password=on_create
   with_items: "{{user_accounts}}"
  
 - authorized_key: user="{{ item.0.name }}" key="{{ item.1 }}"
