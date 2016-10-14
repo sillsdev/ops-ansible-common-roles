@@ -3,6 +3,6 @@
 
 - name: "Ansible Test"
   hosts: all
-  sudo: true
+  become: true
   roles:
     - { role: ../../ansible, tags: ansible }

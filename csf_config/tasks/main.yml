@@ -95,7 +95,7 @@
     regexp: '^LF_{{item.name}} ='
     line: 'LF_{{item.name}} = "{{item.limit}}"'
   with_items:
-    csf_config_lfd_blocks
+    "{{csf_config_lfd_blocks}}"
   notify:
     - restart lfd
   tags:
@@ -118,7 +118,7 @@
     regexp: '^{{item.name}}_LOG ='
     line: '{{item.name}}_LOG = "{{item.file}}"'
   with_items:
-    csf_config_logs
+    "{{csf_config_logs}}"
   notify:
     - restart lfd
       
@@ -128,7 +128,7 @@
     regexp: '^{{item.name}}_LOG ='
     line: '{{item.name}}_LOG = "{{item.file}}"'
   with_items:
-    csf_config_logs_custom
+    "{{csf_config_logs_custom}}"
   notify:
     - restart lfd
 

@@ -2,6 +2,6 @@
 
 - name: SSL Test Configuration
   hosts: all
-  sudo: true
+  become: true
   roles:
     - { role: ../../ssl_config, tags: ssl_config }

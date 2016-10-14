@@ -3,7 +3,7 @@
     regexp: "{{item}}"
     line: "{{item}}"
   with_items:
-    locale_install_locales
+    "{{locale_install_locales}}"
   when: ansible_os_family == "Debian"
 
 - command: locale-gen

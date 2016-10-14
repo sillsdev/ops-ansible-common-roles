@@ -4,32 +4,32 @@
   command: openssl genrsa -out "{{ssl_path}}/{{item.name}}.key" "{{item.key_size | default('2048')}}"
   args:
     creates: "{{ssl_path}}/{{item.name}}.key"
-  with_items: ssl_items
+  with_items: "{{ssl_items}}"
   when: "'{{item.state}}' == 'request' or '{{item.state}}' == 'selfsign'"
 
 - name: Create new request config file
   template:
     src: openssl.j2
     dest: "{{ssl_path}}/{{item.name}}.cnf"
-  with_items: ssl_items
+  with_items: "{{ssl_items}}"
   when: "'{{item.state}}' == 'request' or '{{item.state}}' == 'selfsign'"
 
 - name: Create new request
   command: openssl req -new -key {{ssl_path}}/{{item.name}}.key -out {{ssl_path}}/{{item.name}}.csr -subj "/C={{item.request.country_code}}/ST={{item.request.state}}/L={{item.request.locality}}/O={{item.request.organization}}/CN={{item.request.common_name}}" -config {{ssl_path}}/{{item.name}}.cnf {{item.request.flags | default('-sha256')}}
   #args:
   #  creates: {{ssl_request_request_file}}
-  with_items: ssl_items
+  with_items: "{{ssl_items}}"
   when: "'{{item.state}}' == 'request' or '{{item.state}}' == 'selfsign'"
 
 - name: Download requests
   fetch: src={{ssl_path}}/{{item.name}}.csr dest=site_info/{{inventory_hostname}}/ssl/ flat=true
-  with_items: ssl_items
+  with_items: "{{ssl_items}}"
   when: "'{{item.state}}' == 'request' or '{{item.state}}' == 'selfsign'"
 
 - name: Summary
-  sudo: false
+  become: false
   local_action: shell openssl req -text -in site_info/{{inventory_hostname}}/ssl/{{item.name}}.csr | grep -v '\(:\w\w:$\)\|\(\w\w:\w\w$\)' | head -n 18 > site_info/{{inventory_hostname}}/ssl/{{item.name}}.csr.txt
-  with_items: ssl_items
+  with_items: "{{ssl_items}}"
   when: "'{{item.state}}' == 'request' or '{{item.state}}' == 'selfsign'"
   changed_when: false
   tags:

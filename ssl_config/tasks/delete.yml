@@ -4,19 +4,19 @@
   file:
     path: "{{ssl_path}}/{{item.name}}.key"
     state: absent
-  with_items: ssl_items
+  with_items: "{{ssl_items}}"
   when: "'{{item.state}}' == 'deleted'"
 
 - name: Delete csr
   file:
     path: "{{ssl_path}}/{{item.name}}.csr"
     state: absent
-  with_items: ssl_items
+  with_items: "{{ssl_items}}"
   when: "'{{item.state}}' == 'deleted' or '{{item.state}}' == 'key'"
   
 - name: Delete cnf
   file:
     path: "{{ssl_path}}/{{item.name}}.cnf"
     state: absent
-  with_items: ssl_items
+  with_items: "{{ssl_items}}"
   when: "'{{item.state}}' == 'deleted' or '{{item.state}}' == 'key'"
