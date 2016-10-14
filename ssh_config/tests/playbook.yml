@@ -2,6 +2,6 @@
 
 - name: SSH Test Config
   hosts: all
-  sudo: true
+  become: true
   roles:
     - { role: ../../ssh_config }

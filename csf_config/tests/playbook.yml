@@ -2,7 +2,7 @@
 
 - name: CSF (Config Server Security + Firewall) Test Install and Configuration
   hosts: all
-  sudo: true
+  become: true
   roles:
     - { role: ../../csf_install, tags: csf_install }
     - { role: ../../csf_config, tags: csf_config }

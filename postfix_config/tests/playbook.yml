@@ -2,7 +2,7 @@
 
 - name: Postfix Test Install and Configuration
   hosts: all
-  sudo: true
+  become: true
   roles:
     - { role: ../../postfix_install, tags: postfix_install }
     - { role: ../../postfix_config, tags: postfix_config }

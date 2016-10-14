@@ -2,7 +2,7 @@
 
 - name: Authprogs Test Install and Configuration
   hosts: all
-  sudo: true
+  become: true
   roles:
     - { role: ../../authprogs_install, tags: authprogs_install }
     - { role: ../../authprogs_config, tags: authprogs_config }

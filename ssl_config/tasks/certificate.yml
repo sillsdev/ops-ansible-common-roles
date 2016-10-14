@@ -4,13 +4,13 @@
   copy:
     src: "{{ssl_certificate_local_path}}/{{item.name}}.pem"
     dest: "{{ssl_path}}/{{item.name}}.pem"
-  with_items: ssl_items
+  with_items: "{{ssl_items}}"
   when: "'{{item.state}}' == 'certificate'"
 
 - name: Key match
   shell: (openssl rsa -noout -in {{ssl_path}}/{{item.name}}.key | openssl md5 ; openssl x509 -noout -in {{ssl_path}}/{{item.name}}.pem | openssl md5) | uniq
   register: result
-  with_items: ssl_items
+  with_items: "{{ssl_items}}"
   when: "'{{item.state}}' == 'certificate'"
   changed_when: false
   failed_when: result.stdout_lines|length > 1

@@ -22,5 +22,5 @@
 
 - name: Monit Configure services
   template: src={{item.template|default('default.j2')}} dest={{item.filename}}
-  with_items: monit_services
+  with_items: "{{monit_services}}"
   notify: restart monit

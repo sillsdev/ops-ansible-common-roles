@@ -2,7 +2,7 @@
 
 - name: Monit Test Install
   hosts: all
-  sudo: true
+  become: true
   roles:
     - { role: ../../monit_install, tags: monit_install }
   tasks:
@@ -11,7 +11,7 @@
         
 - name: Monit Test Configuration
   hosts: all
-  sudo: true
+  become: true
   vars:
     monit_has_apache: true
     monit_services:
