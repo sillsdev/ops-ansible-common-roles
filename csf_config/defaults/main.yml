@@ -30,6 +30,8 @@ csf_config_ports:
 csf_config_testing: 0
 # For VZ containers
 # csf_config_device: "venet0"
+# For LXC containers
+# csf_config_device: "eth0"
 csf_config_device: "{{ansible_default_ipv4.interface}}"
 csf_config_alert_ssh_email: 0
 
