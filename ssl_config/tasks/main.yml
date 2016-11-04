@@ -1,8 +1,8 @@
 ---
 
 - { include: install.yml, tags: [ install ] }
-- { include: install_letsencrypt.yml, tags: [ install, letsencrypt, ssl_install_letsencrypt ] }
-- { include: request.yml, tags: [ config, request, letsencrypt ] }
+- { include: install_letsencrypt.yml, tags: [ install, ssl_install_letsencrypt ] }
+- { include: request.yml, tags: [ config, request ] }
 - { include: certificate.yml, tags: [ config, certificate ] }
 - { include: sign.yml, tags: [ config, sign, letsencrypt ] }
 - { include: delete.yml, tags: [ config, delete ] }

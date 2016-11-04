@@ -6,11 +6,11 @@
   when: "'{{item.state}}' == 'selfsign'"
 
 - name: Lets Encrypt sign certificate
-  command: /usr/local/bin/certbot-auto certonly -q --csr {{ssl_path}}/{{item.name}}.csr --webroot -w {{ item.sign.webroot }} --dry-run
+  command: /usr/local/bin/certbot-auto certonly -q --webroot -w {{ item.sign.webroot }} {{ item.sign.alt_names | join(' ') }}
   #args:
   #  creates: {{ssl_request_request_file}}
   with_items: "{{ssl_items}}"
-  when: "'{{item.state}}' == 'request' and '{{item.vendor | default('') }}' == 'letsencrypt'"
+  when: "'{{item.state}}' == 'sign' and '{{item.vendor | default('') }}' == 'letsencrypt'"
 
 - name: Download certificate
   fetch: src="{{ssl_path}}/{{item.name}}.pem" dest="{{ssl_certificate_local_path}}/{{item.name}}.pem" flat=true

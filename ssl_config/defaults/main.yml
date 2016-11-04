@@ -37,18 +37,9 @@ ssl_items:
     sign:
   - name: testletsencrypt
     vendor: letsencrypt
-    state: request
-    request:
-        country_code: "NZ"
-        state: "Taranaki"
-        locality: "New Plymouth"
-        organization: "saygoweb"
-        organization_unit: ""
-        common_name: "test.saygoweb.com"
-        alt_names:
-          - key: DNS.1
-            value: "www.test.saygoweb.com"
-          - key: DNS.2
-            value: "test.saygoweb.com"
+    state: sign
     sign:
-        webroot: /var/www/virtual/saygoweb.com/test.saygoweb.com/htdocs
+        webroot: /var/www/virtual/saygoweb.com/test/htdocs
+        alt_names:
+          - "-d test.saygoweb.com"
+          - "-d www.test.saygoweb.com"
