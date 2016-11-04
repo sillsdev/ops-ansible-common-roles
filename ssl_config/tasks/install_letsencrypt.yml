@@ -1,0 +1,28 @@
+---
+
+- name: "LetsEncrypt: Check if already installed"
+  stat: path=/usr/local/bin/certbot-auto
+  register: ssl_certbotauto
+
+- name: "LetsEncrypt: Install certbot-auto"
+  get_url:
+    url: https://dl.eff.org/certbot-auto
+    dest: /usr/local/bin/certbot-auto
+    mode: 0755
+  when: ssl_certbotauto.stat.exists == false
+  tags:
+    - install
+    - ssl_install_letsencrypt
+
+- name: "LetsEncrypt: Install packages"
+  shell : "yes | /usr/local/bin/certbot-auto -q"
+  when: ssl_certbotauto.stat.exists == false
+  tags:
+    - install
+    - ssl_install_letsencrypt
+
+- name: "LetsEncrypt: Install cron task"
+  copy: src=letsencrypt dest=/etc/cron.weekly/letsencrypt mode=0755
+  tags:
+    - install
+    - ssl_install_letsencrypt

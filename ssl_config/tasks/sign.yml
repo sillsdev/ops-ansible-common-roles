@@ -5,7 +5,16 @@
   with_items: "{{ssl_items}}"
   when: "'{{item.state}}' == 'selfsign'"
 
+- name: Lets Encrypt sign certificate
+  command: /usr/local/bin/certbot-auto certonly -q --csr {{ssl_path}}/{{item.name}}.csr --webroot -w {{ item.sign.webroot }} --dry-run
+  #args:
+  #  creates: {{ssl_request_request_file}}
+  with_items: "{{ssl_items}}"
+  when: "'{{item.state}}' == 'request' and '{{item.vendor | default('') }}' == 'letsencrypt'"
+
 - name: Download certificate
   fetch: src="{{ssl_path}}/{{item.name}}.pem" dest="{{ssl_certificate_local_path}}/{{item.name}}.pem" flat=true
   with_items: "{{ssl_items}}"
   when: "'{{item.state}}' == 'selfsign'"
+
+# TODO Download Lets Encrypt certs?
