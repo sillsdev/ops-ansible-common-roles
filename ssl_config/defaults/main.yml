@@ -35,4 +35,11 @@ ssl_items:
           - key: DNS.2
             value: "default.local"
     sign:
-      
+  - name: testletsencrypt
+    vendor: letsencrypt
+    state: sign
+    sign:
+        webroot: /var/www/virtual/saygoweb.com/test/htdocs
+        alt_names:
+          - "-d test.saygoweb.com"
+          - "-d www.test.saygoweb.com"
