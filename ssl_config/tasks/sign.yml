@@ -6,7 +6,7 @@
   when: "'{{item.state}}' == 'selfsign'"
 
 - name: Lets Encrypt sign certificate
-  command: /usr/local/bin/certbot-auto certonly --non-interactive --{{ item.sign.authmode | default(ssl_letsencrypt_defaultmode) }} -w {{ item.sign.webroot }} {{ item.sign.alt_names | join(' ') }}
+  command: /usr/local/bin/certbot-auto certonly --non-interactive --{{ item.sign.authmode | default(ssl_letsencrypt_defaultmode) }} {% if item.sign.authmode == 'webroot' %}-w {{ item.sign.webroot }}{% endif %} {{ item.sign.alt_names | join(' ') }} --agree-tos --email {{ item.sign.email | default(ssl_letsencrypt_email) }}
   #args:
   #  creates: {{ssl_request_request_file}}
   with_items: "{{ssl_items}}"
