@@ -9,20 +9,25 @@
     url: https://dl.eff.org/certbot-auto
     dest: /usr/local/bin/certbot-auto
     mode: 0755
-  when: ssl_certbotauto.stat.exists == false
+  when: ssl_letsencrypt_install == true and ssl_certbotauto.stat.exists == false
   tags:
     - install
     - ssl_install_letsencrypt
 
 - name: "LetsEncrypt: Install packages"
-  shell : "yes | /usr/local/bin/certbot-auto -q"
-  when: ssl_certbotauto.stat.exists == false
+  shell : "/usr/local/bin/certbot-auto --version --non-interactive"
+  when: ssl_letsencrypt_install == true and ssl_certbotauto.stat.exists == false
+  tags:
+    - install
+    - ssl_install_letsencrypt
+  
   tags:
     - install
     - ssl_install_letsencrypt
 
 - name: "LetsEncrypt: Install cron task"
   copy: src=letsencrypt dest=/etc/cron.weekly/letsencrypt mode=0755
+  when: ssl_letsencrypt_install == true
   tags:
     - install
     - ssl_install_letsencrypt

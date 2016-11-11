@@ -3,7 +3,8 @@
 ssl_path: /root/csr
 ssl_certificate_local_path: site_files/certificates
 
-ssl_letsencrypt_defaultmode: webroot
+ssl_letsencrypt_install: true
+ssl_letsencrypt_defaultmode: "webroot"
 ssl_letsencrypt_email: changeme@example.com
 
 ssl_items:
