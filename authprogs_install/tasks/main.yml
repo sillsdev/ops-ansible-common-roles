@@ -1,6 +1,6 @@
 ---
 
-- name: Authprogs Install Pre-requisites
+- name: "Authprogs Install Pre-requisites"
   apt: package=git state=present
 
 - git:
