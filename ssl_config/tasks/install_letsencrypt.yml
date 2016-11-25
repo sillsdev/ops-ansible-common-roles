@@ -21,10 +21,6 @@
     - install
     - ssl_install_letsencrypt
   
-  tags:
-    - install
-    - ssl_install_letsencrypt
-
 - name: "LetsEncrypt: Install cron task"
   copy: src=letsencrypt dest=/etc/cron.weekly/letsencrypt mode=0755
   when: ssl_letsencrypt_install == true
