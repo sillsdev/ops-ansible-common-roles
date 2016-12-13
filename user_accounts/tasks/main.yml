@@ -5,5 +5,5 @@
  
 - authorized_key: user="{{ item.0.name }}" key="{{ item.1 }}"
   with_subelements:
-    - user_accounts
+    - "{{user_accounts}}"
     - authorized
