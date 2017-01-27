@@ -8,7 +8,7 @@
      state=latest     
 
 - name: Downloading Config Server Firewall
-  get_url: dest=/usr/local/src url=https://download.configserver.com/csf.tgz force=no
+  get_url: dest=/usr/local/src url=https://download.configserver.com/csf.tgz force=no validate_certs=no
   
 - unarchive: copy=no src=/usr/local/src/csf.tgz dest=/usr/local/src/
 

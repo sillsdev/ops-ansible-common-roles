@@ -31,6 +31,17 @@
     - restart csf
 
 - lineinfile: 
+    dest: /etc/csf/csf.allow
+    regexp: "^{{item.ip}}"
+    line: "{{item.ip}} # {{item.comment | default('')}}"
+  with_items: "{{csf_config_allow}}"
+  tags:
+    - csf_ports
+    - csf_ports_allow
+  notify:
+    - restart csf
+
+- lineinfile: 
     dest: /etc/csf/csf.conf
     regexp: "{{item.regexp}}"
     line: "{{item.line}}"
@@ -106,7 +117,7 @@
     regexp: '^LF_{{item.name}}_PERM ='
     line: 'LF_{{item.name}}_PERM = "{{item.time}}"'
   with_items:
-    csf_config_lfd_blocks
+    "{{csf_config_lfd_blocks}}"
   notify:
     - restart lfd
   tags:
