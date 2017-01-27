@@ -1,2 +1,8 @@
 #!/bin/sh
+if [ -f /usr/sbin/csf ]; then
+    /usr/sbin/csf -ta 0.0.0.0/0 180 -d out
+fi
 /usr/local/bin/certbot-auto renew --quiet --no-self-upgrade
+if [ -f /usr/sbin/csf ]; then
+    /usr/sbin/csf -tr 0.0.0.0/0
+fi

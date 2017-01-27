@@ -26,4 +26,5 @@
   when: ssl_letsencrypt_install == true
   tags:
     - install
+    - ssl_install_cron
     - ssl_install_letsencrypt
