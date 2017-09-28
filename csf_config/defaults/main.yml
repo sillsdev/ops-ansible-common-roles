@@ -167,6 +167,7 @@ csf_config_pignore:
     - "user:filter"
     - "user:cambell"
     - "user:dovecot"
+    - "exe:/usr/sbin/nginx"
     - "exe:/usr/lib/courier-imap/bin/pop3d"
     - "exe:/usr/lib/courier-imap/bin/imapd"
     - "exe:/usr/sbin/sshd"
