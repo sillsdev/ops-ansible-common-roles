@@ -58,6 +58,14 @@ csf_config_process_load_action: ""
 csf_config_process_forkbomb: 0
 csf_config_process_sshdhung: 0
 
+csf_config_dyndns: 0
+csf_config_dyndns_ignore: 0
+csf_dyndns_allow:
+  - protocol: "tcp"
+    direction: "out"
+    port: "d=443"
+    domain: "d=example.com"
+
 csf_config_lfd_interval: 600
 csf_config_lfd_blocks:
   - name: "SSHD"
@@ -67,9 +75,6 @@ csf_config_lfd_blocks:
     limit: 5
     time:  7200
   - name: "SMTPAUTH"
-    limit: 5
-    time:  7200
-  - name: "POP3D"
     limit: 5
     time:  7200
   - name: "POP3D"
