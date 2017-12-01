@@ -65,9 +65,12 @@
     - { regexp: '^PORTKNOCKING_ALERT =', line: 'PORTKNOCKING_ALERT = "{{csf_config_port_knocking.alert}}"' }
     - { regexp: '^ST_SYSTEM =', line: 'ST_SYSTEM = "{{csf_config_system.enabled}}"' }
     - { regexp: '^LF_WEBMIN_EMAIL_ALERT =', line: 'LF_WEBMIN_EMAIL_ALERT = "0"' }
+    - { regexp: '^DYNDNS =', line: 'DYNDNS = "{{csf_config_dyndns}}"' }
+    - { regexp: '^DYNDNS_IGNORE =', line: 'DYNDNS_IGNORE = "{{csf_config_dyndns_ignore}}"' }
     # - { regexp: '^', line: '' }
   notify:
     - restart lfd
+    - restart csf
   tags:
     - csf_conf
 
@@ -158,3 +161,15 @@
     src: regex.custom.pm
   notify:
     - restart lfd
+
+# dyndns
+- lineinfile: 
+    dest: /etc/csf/csf.dyndns
+    line: '{{item.protocol}}|{{item.direction}}|{{item.port}}|{{item.domain}}'
+  with_items:
+    "{{csf_dyndns_allow}}"
+  notify:
+    - restart lfd
+    - restart csf
+  tags:
+    - csf_dyndns
