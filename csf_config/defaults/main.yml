@@ -31,6 +31,7 @@ csf_config_allow: []
 #  - { ip: 10.1.2.3, comment: 'some comment'}
 
 csf_config_testing: 0
+csf_config_auto_updates: 1
 # For VZ containers
 # csf_config_device: "venet0"
 # For LXC containers

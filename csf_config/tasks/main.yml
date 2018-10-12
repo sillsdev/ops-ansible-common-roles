@@ -46,6 +46,7 @@
     regexp: "{{item.regexp}}"
     line: "{{item.line}}"
   with_items:
+    - { regexp: '^AUTO_UPDATES =', line: 'AUTO_UPDATES = "{{csf_config_auto_updates}}"' }
     - { regexp: '^TESTING =', line: 'TESTING = "{{csf_config_testing}}"' }
     - { regexp: '^ETH_DEVICE =', line: 'ETH_DEVICE = "{{csf_config_device}}"' }
     - { regexp: '^DENY_IP_LIMIT =', line: 'DENY_IP_LIMIT = "100"' }
