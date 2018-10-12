@@ -4,18 +4,21 @@ postfix_templates: debian_7.x
 
 # main.cf
 postfix_myhostname: "{{ansible_fqdn}}"
-postfix_mydomain: "{{ansible_fqdn}}.local"
+postfix_mydomain: "{{postfix_myhostname}}.local"
 postfix_smtp_bind_address: "{{ansible_default_ipv4.address}}"
 
 postfix_mydestinations:
-  - "{{ansible_fqdn}}"
-  - "localhost.8-amd64"
+  - "{{postfix_myhostname}}"
+  - "localhost.localdomain"
   - "localhost"
+
+postfix_relayhost: ""
 
 postfix_mynetworks:
   - "{{ansible_default_ipv4.network}}/24"
   - "127.0.0.0/8"
   - "[::ffff:127.0.0.0]/104"
   - "[::1]/128"
-  
+
+postfix_inet_interfaces: "loopback-only"
 # master.cf

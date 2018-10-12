@@ -1,0 +1,20 @@
+# See /usr/share/postfix/main.cf.dist for a commented, more complete version
+
+smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU)
+biff = no
+
+# appending .domain is the MUA's job.
+append_dot_mydomain = no
+
+# Uncomment the next line to generate "delayed mail" warnings
+#delay_warning_time = 4h
+
+myhostname = {{postfix_myhostname}}
+mydomain = {{postfix_mydomain}}
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+mydestination = {{postfix_mydestinations | join(', ')}}
+relayhost = {{postfix_relayhost}}
+mynetworks = {{postfix_mynetworks | join(' ')}}
+inet_interfaces = {{postfix_inet_interfaces}}
+recipient_delimiter = +
