@@ -1,10 +1,11 @@
+---
+
 - hosts: all
   name: Postfix Info
   gather_facts: no
   become: yes
   tasks:
     - name: Fetch config files
-      sudo: yes
       fetch: src={{item}} dest={{info_dest|default('site_info/')}}
       with_items:
         - "/etc/postfix/main.cf"
