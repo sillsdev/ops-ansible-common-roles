@@ -13,7 +13,7 @@
 
 # General CSF Configuration
 - lineinfile: 
-    dest: /etc/csf/csf.conf
+    path: /etc/csf/csf.conf
     regexp: "{{item.regexp}}"
     line: "{{item.line}}"
   with_items:
@@ -31,7 +31,7 @@
     - restart csf
 
 - lineinfile: 
-    dest: /etc/csf/csf.allow
+    path: /etc/csf/csf.allow
     regexp: "^{{item.ip}}"
     line: "{{item.ip}} # {{item.comment | default('')}}"
   with_items: "{{csf_config_allow}}"
@@ -42,7 +42,7 @@
     - restart csf
 
 - lineinfile: 
-    dest: /etc/csf/csf.conf
+    path: /etc/csf/csf.conf
     regexp: "{{item.regexp}}"
     line: "{{item.line}}"
   with_items:
@@ -76,7 +76,7 @@
     - csf_conf
 
 - lineinfile:
-    dest: /etc/csf/csf.conf
+    path: /etc/csf/csf.conf
     regexp: "^{{item.name}} ="
     line: "{{item.name}} = {{item.value}}"
   with_items:
@@ -106,7 +106,7 @@
 
 # Configure the LFD checks. Each named check has a limit on hits after which ip will be blocked for time seconds.
 - lineinfile: 
-    dest: /etc/csf/csf.conf
+    path: /etc/csf/csf.conf
     regexp: '^LF_{{item.name}} ='
     line: 'LF_{{item.name}} = "{{item.limit}}"'
   with_items:
@@ -117,7 +117,7 @@
     - csf_lfd_checks
 
 - lineinfile: 
-    dest: /etc/csf/csf.conf
+    path: /etc/csf/csf.conf
     regexp: '^LF_{{item.name}}_PERM ='
     line: 'LF_{{item.name}}_PERM = "{{item.time}}"'
   with_items:
@@ -129,7 +129,7 @@
 
 # Configure the location of the logfiles
 - lineinfile: 
-    dest: /etc/csf/csf.conf
+    path: /etc/csf/csf.conf
     regexp: '^{{item.name}}_LOG ='
     line: '{{item.name}}_LOG = "{{item.file}}"'
   with_items:
@@ -139,7 +139,7 @@
       
 # Configure the location of the custom logfiles
 - lineinfile: 
-    dest: /etc/csf/csf.conf
+    path: /etc/csf/csf.conf
     regexp: '^{{item.name}}_LOG ='
     line: '{{item.name}}_LOG = "{{item.file}}"'
   with_items:
@@ -165,7 +165,7 @@
 
 # dyndns
 - lineinfile: 
-    dest: /etc/csf/csf.dyndns
+    path: /etc/csf/csf.dyndns
     line: '{{item.protocol}}|{{item.direction}}|{{item.port}}|{{item.domain}}'
   with_items:
     "{{csf_dyndns_allow}}"

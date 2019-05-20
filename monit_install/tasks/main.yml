@@ -1,10 +1,11 @@
 ---
+
 - name: Monit Install
   apt: name=monit state=latest
 
 - name: Monit Add to inittab
   lineinfile: 
-    dest: /etc/inittab
+    path: /etc/inittab
     regexp: "/etc/monit/monitrc"
     line: "mon:23:respawn:/usr/bin/monit -I -d 60 -c /etc/monit/monitrc -s /var/lib/monit/state"
   notify: reinit monit

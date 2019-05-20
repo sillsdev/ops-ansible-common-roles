@@ -1,7 +1,7 @@
 ---
 
 - lineinfile:
-    dest: /etc/ssh/sshd_config
+    path: /etc/ssh/sshd_config
     regexp: "{{item.regexp}}"
     line: "{{item.line}}"
   with_items:
@@ -12,7 +12,7 @@
     - restart ssh
 
 - lineinfile:
-    dest: /etc/default/ssh
+    path: /etc/default/ssh
     regexp: "{{item.regexp}}"
     line: "{{item.line}}"
   with_items:

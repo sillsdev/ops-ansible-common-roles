@@ -1,5 +1,7 @@
+---
+
 - lineinfile:
-    dest: /etc/vz/vz.conf
+    path: /etc/vz/vz.conf
     state: present
     regexp: '^IPTABLES='
     line: 'IPTABLES="ipt_REJECT ipt_tos ipt_limit ipt_multiport iptable_filter iptable_mangle ipt_TCPMSS ipt_tcpmss ipt_ttl ipt_length ipt_state iptable_nat ip_nat_ftp ip_tables ipt_conntrack ip_conntrack_ftp ipt_LOG ipt_owner"'
