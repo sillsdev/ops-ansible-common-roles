@@ -1,19 +1,28 @@
 ---
 
 - name: "Authprogs Install Pre-requisites"
-  apt: package=git state=present
+  apt: 
+    package: python3-pip
+    state: present 
+    update_cache: yes
 
-- git:
-    repo: "https://github.com/daethnir/authprogs.git"
-    dest: "/usr/local/src/authprogs"
+- name: "Authprogs Install"
+  pip:
+    name: authprogs
 
-- apt: name=python-setuptools
-- apt: name=python-yaml
-- apt: name=ruby-ronn
+#   apt: package=git state=present
 
-- command: python setup.py install
-  args:
-    chdir: "/usr/local/src/authprogs"
-    creates: "/usr/local/bin/authprogs"
+# - git:
+#     repo: "https://github.com/daethnir/authprogs.git"
+#     dest: "/usr/local/src/authprogs"
 
-- apt: name=ruby-ronn state=absent
+# - apt: name=python-setuptools
+# - apt: name=python-yaml
+# - apt: name=ruby-ronn
+
+# - command: python setup.py install
+#   args:
+#     chdir: "/usr/local/src/authprogs"
+#     creates: "/usr/local/bin/authprogs"
+
+# - apt: name=ruby-ronn state=absent
