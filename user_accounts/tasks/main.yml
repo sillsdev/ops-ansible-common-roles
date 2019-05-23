@@ -1,6 +1,13 @@
 ---
 
-- user: name={{ item.name }} groups={{ item.groups | default('') }} append=yes group=staff password={{ item.password | default('$6$iMc.8n5vbeP$2NW05YOPG2NpRTUJmAg8XqHF8625ycGq.GTDamMPwQoTa3jD61BtI.auq1CExPOiX4T3/nIjRG1YKM9s7C7R1.') }} update_password=on_create
+- user: 
+    name: "{{ item.name }}"
+    groups: "{{ item.groups | default('') }}"
+    append: yes
+    shell: /bin/bash
+    group: staff
+    password: "{{ item.password | default('') }}"
+    update_password: on_create
   with_items: "{{user_accounts}}"
  
 - authorized_key: user="{{ item.0.name }}" key="{{ item.1 }}"
