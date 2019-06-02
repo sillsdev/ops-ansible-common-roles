@@ -1,19 +1,32 @@
 ---
 
-- name: "Authprogs Install Pre-requisites"
-  apt: package=git state=present
+- name: "Authprogs Install Pre-requisites | Python 3"
+  apt: 
+    package: python3-pip
+    update_cache: yes
+  when: '"python3" in hostvars[inventory_hostname].ansible_playbook_python'
 
-- git:
-    repo: "https://github.com/daethnir/authprogs.git"
-    dest: "/usr/local/src/authprogs"
+- name: "Authprogs Install Pre-requisites - apt | Python 2"
+  apt: 
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+    - python-pip
+    - python-virtualenv
+    - python-setuptools
+  when: '"python3" not in hostvars[inventory_hostname].ansible_playbook_python'
+- name: "Authprogs Install Pre-requisites - pip | Python 2"
+  pip: 
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+    - pip
+    - virtualenv
+    - setuptools
+  when: '"python3" not in hostvars[inventory_hostname].ansible_playbook_python'
 
-- apt: name=python-setuptools
-- apt: name=python-yaml
-- apt: name=ruby-ronn
-
-- command: python setup.py install
-  args:
-    chdir: "/usr/local/src/authprogs"
-    creates: "/usr/local/bin/authprogs"
-
-- apt: name=ruby-ronn state=absent
+- name: "Authprogs Install"
+  pip:
+    name: authprogs
