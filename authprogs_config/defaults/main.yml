@@ -1,0 +1,10 @@
+---
+
+# Allows this 'authprogs_config' role to be included in a playbook that is not in the repo root folder or if the
+# `site_files` folder is not in the repo root.
+# Example usage for playbook in single subfolder:
+# - roles:
+#   - role: authprogs_config
+#     vars:
+#       authprogs_site_files_relative_path: "../"
+authprogs_site_files_relative_path: ""

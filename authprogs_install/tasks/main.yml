@@ -4,7 +4,7 @@
   apt: 
     package: python3-pip
     update_cache: yes
-  when: '"python3" in hostvars[inventory_hostname].ansible_playbook_python'
+  when: 'hostvars[inventory_hostname].ansible_python_interpreter is defined and "python3" in hostvars[inventory_hostname].ansible_python_interpreter'
 
 - name: "Authprogs Install Pre-requisites - apt | Python 2"
   apt: 
@@ -15,7 +15,7 @@
     - python-pip
     - python-virtualenv
     - python-setuptools
-  when: '"python3" not in hostvars[inventory_hostname].ansible_playbook_python'
+  when: 'hostvars[inventory_hostname].ansible_python_interpreter is not defined'
 - name: "Authprogs Install Pre-requisites - pip | Python 2"
   pip: 
     name: "{{ packages }}"
@@ -25,7 +25,7 @@
     - pip
     - virtualenv
     - setuptools
-  when: '"python3" not in hostvars[inventory_hostname].ansible_playbook_python'
+  when: 'hostvars[inventory_hostname].ansible_python_interpreter is not defined'
 
 - name: "Authprogs Install"
   pip:
