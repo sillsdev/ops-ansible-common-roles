@@ -44,6 +44,8 @@ ssl_items:
     state: sign
     sign:
         webroot: /var/www/virtual/saygoweb.com/test/htdocs
+        pre_hook: /usr/bin/true
+        post_hook: /usr/bin/true
         alt_names:
           - "-d test.saygoweb.com"
           - "-d www.test.saygoweb.com"
