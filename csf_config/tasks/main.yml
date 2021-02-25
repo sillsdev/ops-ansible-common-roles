@@ -32,7 +32,6 @@
 
 - lineinfile: 
     path: /etc/csf/csf.allow
-    regexp: "^{{item.ip}}"
     line: "{{item.ip}} # {{item.comment | default('')}}"
   with_items: "{{csf_config_allow}}"
   tags:
