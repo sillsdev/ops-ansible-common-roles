@@ -25,7 +25,6 @@
   ansible.builtin.command: sh ./install.sh
   args:
     chdir: /usr/local/src/csf
-    creates: /etc/csf/csf.conf
 
 - name: Running the CSF test script...
   ansible.builtin.command: perl /etc/csf/csftest.pl
