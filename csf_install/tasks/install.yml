@@ -3,21 +3,32 @@
 # Authors: Carson Wiens, Stephen Papierski, Cambell Prince
 
 - name: Installing perl
-  apt: 
-     name=perl
-     state=latest     
+  ansible.builtin.apt:
+    name: perl
+    state: present
 
 - name: Downloading Config Server Firewall
-  get_url: dest=/usr/local/src url=https://download.configserver.com/csf.tgz force=no validate_certs=no
-  
-- unarchive: copy=no src=/usr/local/src/csf.tgz dest=/usr/local/src/
+  ansible.builtin.get_url:
+    url: https://download.configserver.com/csf.tgz
+    dest: /usr/local/src
+    force: false
+    validate_certs: false
+    mode: '0644'
+
+- name: Extracting Config Server Firewall
+  ansible.builtin.unarchive:
+    src: /usr/local/src/csf.tgz
+    dest: /usr/local/src/
+    remote_src: true
 
 - name: Installing Config Server Firewall
-  shell: sh ./install.sh
+  ansible.builtin.command: sh ./install.sh
   args:
-      chdir: /usr/local/src/csf
+    chdir: /usr/local/src/csf
+    creates: /etc/csf/csf.conf
 
 - name: Running the CSF test script...
-  shell: perl /etc/csf/csftest.pl | grep FATAL
+  ansible.builtin.command: perl /etc/csf/csftest.pl
   register: csf_output
+  changed_when: false
   failed_when: "'FATAL' in csf_output.stdout"

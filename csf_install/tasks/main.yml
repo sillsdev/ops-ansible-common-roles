@@ -2,9 +2,11 @@
 # Installs and configures the CSF firewall
 # Authors: Carson Wiens, Stephen Papierski, Cambell Prince
 
-- stat: path=/etc/csf/csf.conf
+- name: Check if CSF is installed
+  ansible.builtin.stat:
+    path: /etc/csf/csf.conf
   register: csf_stat
 
-- include: install.yml
+- name: Include install tasks if CSF is not installed
+  ansible.builtin.include_tasks: install.yml
   when: not csf_stat.stat.exists
-  
